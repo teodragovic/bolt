@@ -1,0 +1,42 @@
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="cleartype" content="on">
+	<title>{{ title }}</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--
+	<meta name="description" content="{{ data.description }}">
+	<meta name="robots" content="noindex, nofollow">
+	-->
+
+	{{> favicon }}
+	{{> msapp }}
+
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="js/vendor/modernizr.min.js"></script>
+	<script>
+		document.documentElement.className = 'wf-loading';
+		setTimeout(function(){document.documentElement.className += ' wf-active';}, 2000);
+		Modernizr.load({
+				test: Modernizr.fontface,
+				yep : 'http://use.typekit.com/TYPEKIT_ID.js',
+				both: [
+					'iegt8!timeout=2000!//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js',
+					'ie8!timeout=2000!//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
+					'js/script.js',
+					'//google-analytics.com/ga.js'
+				],
+				callback: {
+					'TYPEKIT_ID.js' : function (url, result, key) { try { Typekit.load(); } catch(e) {}; },
+					'jquery.min.js' : function (url, result, key) { if (!window.jQuery) Modernizr.load('js/vendor/jquery.min.js'); },
+					'ga.js' : function (url, result, key) { var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']]; },
+				}
+			});
+	</script>
+	<noscript><link href="/src/images/svg-build/icons.fallback.css" rel="stylesheet"></noscript>
+</head>

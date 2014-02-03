@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]><html class="no-js ie"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""><!--<![endif]-->
+	{{> head }}
+	<body ontouchstart="">
+
+		{{> noscript }}
+		{{> browsehappy }}
+
+		{{> header }}
+
+		<main role="main">
+			{{#markdown}}
+				{{> body }}
+			{{/markdown}}
+		</main>
+
+		{{> footer }}
+		{{> foot }}
+	</body>
+</html>

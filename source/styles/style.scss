@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/*========================================*\
+    $TABLE OF CONTENTS
+\*========================================*/
+
+/**
+ *
+ * UTILITIES
+ * -- MODULES
+ * ---- Variables (all SASS variables)
+ * ---- Functions (functions that return values based on variables)
+ * ---- Mixins (mixins can use variables and functions)
+ * ---- Placeholders (delete if using placholders based on site logical structure)
+ * -- Normalize (tehnically vendor file but used as utility)
+ * -- Globals (opinionated defaults, DON'T go overboard)
+ * -- Helpers (clearfixes, grids, floats...the usual)
+ *
+ * PARTIALS
+ * -- Layout (basic site layout - body, main, header, footer etc.)
+ * -- Typography (web is 95% typography)
+ * -- COMPONENTS
+ * ---- (buttons, tables, forms etc.)
+ * -- TEMPLATES
+ * ---- (specific styling for indivudual pages, overrides other styles)
+ *
+ * VENDOR
+ * -- (third-party styles ie. jqueryUI)
+ *
+ * Custom (global overrides for hacks or wathever)
+ *
+ * Print
+ *
+ **/
+
+/*========================================*\
+    $MODULES
+\*========================================*/
+
+@import "utilities/modules/variables";
+@import "utilities/modules/functions";
+@import "utilities/modules/mixins";
+@import "utilities/modules/placeholders";
+
+@import "utilities/normalize";
+@import "utilities/globals";
+@import "utilities/helpers";
+
+/*========================================*\
+    $PARTIALS
+\*========================================*/
+
+@import "partials/layout";
+@import "partials/typography";
+
+/*========================================*\
+    $COMPONENTS
+\*========================================*/
+
+// @import "partials/components";
+
+/*========================================*\
+    $TEMPLATES
+\*========================================*/
+
+// @import "partials/templates";
+
+/*========================================*\
+    $VENDOR
+\*========================================*/
+
+// @import "vendor";
+
+/*========================================*\
+    $CUSTOM
+\*========================================*/
+
+@import "custom";
+
+/*========================================*\
+    $PRINT
+\*========================================*/
+
+@import "print";
+
