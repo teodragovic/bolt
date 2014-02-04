@@ -10,3 +10,4 @@ logs
 node_modules
 *.log
 *.sublime*
+source/scripts/vendor/

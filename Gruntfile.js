@@ -178,10 +178,14 @@ module.exports = function(grunt) {
 				destPrefix: '<%= config.src %>',
 				report: true, //default
 			},
-			dist: {
+			scripts: {
 				files: {
 					'scripts/vendor/jquery.min.js' : 'jquery/jquery.min.js',
 					'scripts/vendor/modernizr.js' : 'modernizr/modernizr.js',
+				},
+			},
+			styles: {
+				files: {
 					'styles/utilities/_normalize.scss' : 'normalize-css/normalize.css',
 				},
 			},
@@ -372,11 +376,12 @@ module.exports = function(grunt) {
 		},
 
 		concurrent: {
-			dist: ['assemble', 'compass:dist', 'bowercopy'],
+			init: ['clean', 'bowercopy:styles']
+			dist: ['assemble', 'compass:dist', 'bowercopy:scripts'],
 			copy: ['copy:scripts', 'copy:dist', 'copy:img'],
 			test: ['validation', 'test-js'], // add csslint (can't use force)
 			optimize: ['css', 'js', 'imgmin'],
-			server1: ['assemble', 'compass:dist', 'bowercopy'],
+			server1: ['assemble', 'compass:dist', 'bowercopy:scripts'],
 			server2: ['autoprefixer', 'modernizr', 'concat'],
 			server3: ['compass:dev', 'watch'],
 			options: {
@@ -389,7 +394,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('assemble');
 
 	grunt.registerTask('serve', [
-		'clean',
+		'concurrent:init',
 		'concurrent:server1',
 		'concurrent:copy',
 		'concurrent:server2',
@@ -413,7 +418,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('ver', ['filerev', 'usemin']);
 
 	grunt.registerTask('default', [
-		'clean',
+		'concurrent:init',
 		'concurrent:dist',
 		'concurrent:copy',
 		'concurrent:test',
