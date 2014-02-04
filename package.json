@@ -16,7 +16,6 @@
     "assemble-contrib-sitemap": "~0.1.7",
     "assemble-contrib-permalinks": "~0.3.2",
     "grunt-contrib-compass": "~0.7.0",
-    "grunt-sass": "~0.9.0",
     "grunt-autoprefixer": "~0.6.4",
     "grunt-csso": "~0.5.3",
     "grunt-contrib-csslint": "~0.2.0",
@@ -37,11 +36,6 @@
     "grunt-grunticon": "~1.0.0-beta.0",
     "grunt-filerev": "~0.2.0",
     "grunt-usemin": "~2.0.2",
-    "grunt-newer": "~0.6.0",
-    "jpegtran-bin": "0.2.0",
-    "grunt-contrib-imagemin": "~0.5.0",
-    "grunt-uncss": "~0.1.6",
-    "grunt-remove-logging": "~0.2.0",
     "grunt-img": "~0.1.7"
   },
   "engines": {

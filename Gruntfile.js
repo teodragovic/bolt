@@ -2,8 +2,6 @@
 
 module.exports = function(grunt) {
 
-	//require('load-grunt-tasks')(grunt);
-
 	require('jit-grunt')(grunt, {
 		validation: "grunt-html-validation",
 		jscs: "grunt-jscs-checker",
@@ -12,8 +10,6 @@ module.exports = function(grunt) {
 	require('time-grunt')(grunt);
 
 	grunt.initConfig ({
-
-		//pkg: grunt.file.readJSON('package.json'),
 
 		// configurable paths
 		config: {
@@ -34,6 +30,7 @@ module.exports = function(grunt) {
 
 		assemble: {
 			options: {
+				assets: '<%= config.build %>',
 				engine: 'handlebars', // default
 				flatten: false, // default
 				layoutdir: '<%= config.src %>/layouts',
@@ -61,43 +58,31 @@ module.exports = function(grunt) {
 		compass: {
 			options: {
 				sassDir: '<%= config.src %>/styles',
-				cssDir: '.tmp/styles',
+				cssDir: '<%= config.build %>/css',
 				imagesDir: '<%= config.src %>/images',
 				javascriptsDir: '<%= config.src %>/scripts',
 				fontsDir: '<%= config.src %>/fonts',
 				importPath: '<%= config.src %>/styles',
 				httpImagesPath: '/img',
-				httpGeneratedImagesPath: '/img',
+				// httpGeneratedImagesPath: '/img',
 				httpFontsPath: '/fonts',
-				relativeAssets: true,
+				relativeAssets: true
 			},
 			dev: {
 				options: {
-					generatedImagesDir: '.tmp/images/generated',
-					// assetCacheBuster: false, // true?
+					//generatedImagesDir: '.tmp/images/generated',
 					noLineComments: true,
 					outputStyle: 'expanded',
 					sourcemap: true,
-					// watch: true, // must run concurrent
+					watch: true, // when true, must run concurrent task
 					debugInfo: true,
 				},
 			},
 			dist: {
 				debugInfo: false,
 				sourcemap: false,
+				assetCacheBuster: true,
 			}
-		},
-
-		sass: {
-			options: {
-				outputStyle: 'expanded',
-				sourceComments: 'none',
-				sourcemap: true,
-			},
-			files: {
-				src: '<%= config.src %>/styles/style.scss',
-				dest: '.tmp/css/style.css',
-			},
 		},
 
 		copy: {
@@ -114,7 +99,7 @@ module.exports = function(grunt) {
 			},
 			img: {
 				files: [
-					{ expand: true, cwd: '<%= config.src %>/images', src: ['**'], dest: '<%= config.build %>/images/'},
+					{ expand: true, cwd: '<%= config.src %>/images', src: ['**', '!<%= config.src %>/images/svg/**'], dest: '<%= config.build %>/images/'},
 				]
 			}
 		},
@@ -142,7 +127,7 @@ module.exports = function(grunt) {
 					dest: 'logs/csslint.txt',
 				},
 			},
-			src: ['.tmp/styles/style.css']
+			src: ['<%= config.build %>/css/style.css']
 		},
 
 		jshint: {
@@ -162,39 +147,23 @@ module.exports = function(grunt) {
 					force: true,
 					reporterOutput: 'logs/jscs.txt',
 					//config: ".jscs.json", https://github.com/mdevils/node-jscs
-					requireCurlyBraces: [ "if" ]
-			},
-		},
-
-		uncss: {
-			dist: {
-				options: {
-					stylesheets: ['.tmp/styles/style.css'],
-					//compress: true,
-				},
-				files: {
-					'<%= config.build %>/css/style.css': ['<%= config.build %>/*.html'],
-				},
+					requireCurlyBraces: [ "if" ],
 			},
 		},
 
 		autoprefixer: {
 			options: {
-				browsers: ['last 2 version'],
+				//browsers: ["last 2 version"], // By default, Autoprefixer uses > 1%, last 2 versions, Firefox ESR, Opera 12.1
 			},
-			dist: {
-				src: '.tmp/styles/style.css', // change if using uncss
+			files: {
+				src: '<%= config.build %>/css/style.css',
 				dest: '<%= config.build %>/css/style.css',
 			},
-			server: {
-				src: '.tmp/css/style.css',
-				dest: '.tmp/css/style.css',
-			}
 		},
 
 		csso: {
 			options: {
-				restructure: true, // ??? needs testing
+				restructure: true,
 				report: 'gzip',
 			},
 			files: {
@@ -212,7 +181,6 @@ module.exports = function(grunt) {
 			dist: {
 				files: {
 					'scripts/vendor/jquery.min.js' : 'jquery/jquery.min.js',
-					'scripts/plugins/fastclick.js' : 'fastclick/lib/fastclick.js',
 					'scripts/vendor/modernizr.js' : 'modernizr/modernizr.js',
 					'styles/utilities/_normalize.scss' : 'normalize-css/normalize.css',
 				},
@@ -221,7 +189,7 @@ module.exports = function(grunt) {
 
 		modernizr: {
 			devFile: '<%= config.src %>/scripts/vendor/modernizr.js',
-			outputFile: '<%= config.build %>/js/vendor/modernizr.min.js',
+			outputFile: '<%= config.build %>/js/vendor/modernizr.js',
 			files: [
 				'<%= config.src %>/scripts/{,*/}*.js',
 				'<%= config.src %>/styles/{,*/}*.scss',
@@ -257,21 +225,6 @@ module.exports = function(grunt) {
 				dest: '<%= config.build %>/js/script.js',
 			},
 		},
-/*
-		imagemin: {
-			dist: {
-				options: {
-					optimizationLevel: 7, // change to smaller number if too slow
-				},
-				files: [{
-					expand: true,
-					cwd: '<%= config.src %>/images/',
-					src: '{,/}*.{gif,jpeg,jpg,png}',
-					dest: '<%= config.build %>/images/',
-				}]
-			},
-		},
-*/
 
 		img: {
 			dist: {
@@ -301,7 +254,7 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					expand: true,
-           cwd: '<%= config.build %>/images/svg',
+					cwd: '<%= config.build %>/images/svg',
 					src: ['*.svg'],
 					dest: '<%= config.build %>/images/svg',
 				}],
@@ -318,20 +271,13 @@ module.exports = function(grunt) {
 				]
 			},
 		},
-/*
-		useminPrepare: {
-			options: {
-					dest: '<%= config.build %>'
-			},
-			html: ['<%= config.build %>/{,/}*.html']
-		},
-*/
+
 		usemin: {
 			options: {
-				assetsDirs: ['<%= config.build %>'],
+				assetsDirs: ['<%= config.build %>/**/*'],
 				patterns: {
-      		script: [[/(js\/script\.js)/, 'Replacing reference to script.js']]
-    		}
+					script: [[/(js\/script\.js)/, 'Replacing reference to script.js']]
+				}
 			},
 			script: ['<%= config.build %>/**/*.html', '!<%= config.build %>/404.html', '!<%= config.build %>/images/**/*.html'],
 			html: ['<%= config.build %>/**/*.html', '!<%= config.build %>/404.html'],
@@ -354,7 +300,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: '<%= config.build %>',
-					src: '{,*/}*.html',
+					src: '**/*.html',
 					dest: '<%= config.build %>'
 				}]
 			}
@@ -366,19 +312,19 @@ module.exports = function(grunt) {
 					port: 9000,
 					livereload: true,
 					hostname: 'localhost',
-					open: true, // or use grunt-devtools
-					base: ['<%= config.build %>', '.tmp'],
+					open: true, // or disable and use grunt-devtools
+					base: '<%= config.build %>',
 				},
 			},
 		},
 
 		watch: {
 			styles: {
-				files: ['<%= config.src %>/styles/**/*.scss'],
-				tasks: ['sass', 'autoprefixer:server'], // add test
+				files: ['<%= config.build %>/css/style.css'],
+				tasks: ['autoprefixer'], // add test
 				options: {
 					spawn: true,
-					livereload: false,
+					livereload: true,
 				}
 			},
 			scripts: {
@@ -390,9 +336,9 @@ module.exports = function(grunt) {
 				}
 			},
 			livereload: {
-				files: ['<%= config.build %>/**/*.html', '.tmp/css/style.css', '<%= config.build %>/js/*.js'], // add img
+				files: ['<%= config.build %>/**/*.html', '<%= config.build %>/js/*.js'], // add img
 				options: {
-					spawn: false,
+					spawn: true,
 					livereload: true,
 				}
 			},
@@ -404,6 +350,22 @@ module.exports = function(grunt) {
 					livereload: true,
 				},
 			},
+			images: {
+				files: ['<%= config.src %>/images/**/*.{gif,jpeg,jpg,png}'],
+				tasks: ['copy:img'],
+				options: {
+					spawn: false,
+					livereload: false,
+				},
+			},
+			svg: {
+				files: ['<%= config.src %>/images/svg/*.svg'],
+				tasks: ['svgmin', 'grunticon'],
+				options: {
+					spawn: false,
+					livereload: false,
+				},
+			},
 			gruntfile: {
 				files: ['Gruntfile.js']
 			},
@@ -411,11 +373,12 @@ module.exports = function(grunt) {
 
 		concurrent: {
 			dist: ['assemble', 'compass:dist', 'bowercopy'],
-			test: ['validation', 'test-js'], // csslint (can't use force)
+			copy: ['copy:scripts', 'copy:dist', 'copy:img'],
+			test: ['validation', 'test-js'], // add csslint (can't use force)
 			optimize: ['css', 'js', 'imgmin'],
-			server: ['assemble', 'sass', 'bowercopy'],
-			scripts: ['modernizr', 'concat'],
-			copy: ['copy:server', 'copy:dist', 'copy:img'],
+			server1: ['assemble', 'compass:dist', 'bowercopy'],
+			server2: ['autoprefixer', 'modernizr', 'concat'],
+			server3: ['compass:dev', 'watch'],
 			options: {
 				limit: 12,
 			}
@@ -427,12 +390,11 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('serve', [
 		'clean',
-		'concurrent:server',
-		'autoprefixer:server',
-		'copy:server',
-		'concurrent:scripts',
+		'concurrent:server1',
+		'concurrent:copy',
+		'concurrent:server2',
 		'connect',
-		'watch',
+		'concurrent:server3',
 	]);
 
 	grunt.registerTask('server', function () {
@@ -440,11 +402,11 @@ module.exports = function(grunt) {
 		grunt.task.run(['serve']);
 	});
 
-	grunt.registerTask('css', ['autoprefixer:dist', 'csso']); // uncss
+	grunt.registerTask('css', ['autoprefixer', 'csso']); // add uncss
 
-	grunt.registerTask('js', ['modernizr', 'concat', 'uglify']); // removelogging
+	grunt.registerTask('js', ['modernizr', 'concat', 'uglify']); // add removelogging
 
-	grunt.registerTask('imgmin', ['img', 'svgmin', 'grunticon']); //imagemin
+	grunt.registerTask('imgmin', ['img', 'svgmin', 'grunticon']);
 
 	grunt.registerTask('test-js', ['jshint', 'jscs']);
 
@@ -461,54 +423,3 @@ module.exports = function(grunt) {
 	]);
 
 };
-
-
-// run grunt-devtools
-
-/*
-### task list:
-time grunt - times grunt tasks
-jit-grunt - load tasks
-
-clean:build - clean build dir before build task
-clean:serve - clean tmp dir before serve task
-
-assemble - generate html
-
-sass - generate css
-compass - generate css
-
-exec:bower - run bower install
-copy:bower - copy vendor scripts
-
-validation - validate html
-csslint - validate css
-jshint - validate js
-jscs - validate js
-
-uncss - remove unused classes
-autoprefixer - vendor prefixes for css
-csso - compress css
-
-modernizr - generate modernizr
-concat - merge scripts
-uglify - compress scripts
-
-imagemin/img - optimize images
-svgmin - optimize svg
-grunticon - fallbacks for svg
-
-rev - ads hash to filenames for caching
-usemin (useminPrepare) - update reference to cached files
-
-htmlmin - compress html
-
-connect - runs server on localhost:9000, opens browser
-watch - run tasks when files modified
-
-newer: - run task only on modified files
-
-concurrent: - make some task run async
-
-split tasks to multiple files?
-*/

@@ -40,7 +40,7 @@ indent_size = 2
 indent_style = space
 indent_size = 2
 
-# spaces instead of tabs for json files
+# Spaces instead of tabs for JSON files
 
 [*.json]
 indent_style = space

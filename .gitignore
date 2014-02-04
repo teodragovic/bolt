@@ -2,13 +2,11 @@
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
 .bower
-node_modules
-build
 .sass-cache
-bower_components
-.temp
 .tmp
+build
 docs
 logs
-npm-debug.log
+node_modules
+*.log
 *.sublime*

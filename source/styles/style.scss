@@ -11,8 +11,7 @@
  * ---- Variables (all SASS variables)
  * ---- Functions (functions that return values based on variables)
  * ---- Mixins (mixins can use variables and functions)
- * ---- Placeholders (delete if using placholders based on site logical structure)
- * -- Normalize (tehnically vendor file but used as utility)
+ * -- Normalize (normalize.css - fetched via bower)
  * -- Globals (opinionated defaults, DON'T go overboard)
  * -- Helpers (clearfixes, grids, floats...the usual)
  *
@@ -23,9 +22,6 @@
  * ---- (buttons, tables, forms etc.)
  * -- TEMPLATES
  * ---- (specific styling for indivudual pages, overrides other styles)
- *
- * VENDOR
- * -- (third-party styles ie. jqueryUI)
  *
  * Custom (global overrides for hacks or wathever)
  *
@@ -64,12 +60,6 @@
 \*========================================*/
 
 // @import "partials/templates";
-
-/*========================================*\
-    $VENDOR
-\*========================================*/
-
-// @import "vendor";
 
 /*========================================*\
     $CUSTOM
