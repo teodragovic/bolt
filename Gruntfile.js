@@ -86,7 +86,7 @@ module.exports = function(grunt) {
 		},
 
 		copy: {
-			server: {
+			scripts: {
 				files: [
 					{ expand: true, dot: true, cwd: '<%= config.src %>/scripts', dest: '<%= config.build %>/js', src: ['vendor/*.js', '!vendor/modernizr.js'], filter: 'isFile' },
 				],
