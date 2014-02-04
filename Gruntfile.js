@@ -212,13 +212,6 @@ module.exports = function(grunt) {
 			},
 		},
 
-		removelogging: {
-			dist: {
-				src: '<%= config.build %>/js/script.js',
-				dest: '<%= config.build %>/js/script.js',
-			},
-		},
-
 		uglify: {
 			options: {
 				report: 'gzip',
@@ -376,7 +369,7 @@ module.exports = function(grunt) {
 		},
 
 		concurrent: {
-			init: ['clean', 'bowercopy:styles']
+			init: ['clean', 'bowercopy:styles'],
 			dist: ['assemble', 'compass:dist', 'bowercopy:scripts'],
 			copy: ['copy:scripts', 'copy:dist', 'copy:img'],
 			test: ['validation', 'test-js'], // add csslint (can't use force)
