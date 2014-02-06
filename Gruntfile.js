@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 		// configurable paths
 		config: {
 				src: 'source',
-				build: 'build'
+				build: 'build',
 		},
 
 		clean: {
@@ -34,6 +34,7 @@ module.exports = function(grunt) {
 				engine: 'handlebars', // default
 				flatten: false, // default
 				layoutdir: '<%= config.src %>/layouts',
+				layout: 'default',
 				layoutext: '.html',
 				partials: ['<%= config.src %>/layouts/partials/*.html'],
 				data: ['<%= config.src %>/data/*.{json,yml}'],
@@ -276,9 +277,9 @@ module.exports = function(grunt) {
 					script: [[/(js\/script\.js)/, 'Replacing reference to script.js']]
 				}
 			},
-			script: ['<%= config.build %>/**/*.html', '!<%= config.build %>/404.html', '!<%= config.build %>/images/**/*.html'],
-			html: ['<%= config.build %>/**/*.html', '!<%= config.build %>/404.html'],
-			css: ['<%= config.build %>/css/{,*/}*.css'],
+			script: ['<%= config.build %>/**/*.html', '!<%= config.build %>/404.html', '!<%= config.build %>/images/**/*.html'], // this just renames script.js
+			html: ['<%= config.build %>/**/*.html', '!<%= config.build %>/404.html'], // this renames everything else in html
+			css: ['<%= config.build %>/css/**/*.css'], // this renames assests in css
 		},
 
 		htmlmin: {
