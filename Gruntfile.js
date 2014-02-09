@@ -65,13 +65,13 @@ module.exports = function(grunt) {
 				fontsDir: '<%= config.src %>/fonts',
 				importPath: '<%= config.src %>/styles',
 				httpImagesPath: '/img',
+				// generatedImagesDir: '<%= config.src %>/images',
 				// httpGeneratedImagesPath: '/img',
 				httpFontsPath: '/fonts',
 				relativeAssets: true
 			},
 			dev: {
 				options: {
-					//generatedImagesDir: '.tmp/images/generated',
 					noLineComments: true,
 					outputStyle: 'expanded',
 					sourcemap: true,

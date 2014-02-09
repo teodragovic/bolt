@@ -20,5 +20,6 @@
 
 # TECHNOLOGY COLOPHON
 
-    HTML5BP, SASS
+    HTML5BP
+    Grunt, Bower
     Normalize.css, jQuery, Modernizr

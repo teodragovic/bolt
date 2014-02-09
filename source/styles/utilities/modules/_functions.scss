@@ -1,1 +1,5 @@
 /* functions */
+
+@function em($font-px, $base: $font-base) {
+	@return #{$font-px/$base}em;
+}
