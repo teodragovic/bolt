@@ -14,7 +14,7 @@
     "time-grunt": "~0.2.7",
     "assemble": "~0.4.33",
     "assemble-contrib-sitemap": "~0.1.7",
-    "assemble-contrib-permalinks": "~0.3.2",
+    "assemble-contrib-permalinks": "0.3.2",
     "grunt-contrib-compass": "~0.7.0",
     "grunt-autoprefixer": "~0.6.4",
     "grunt-csso": "~0.5.3",
